@@ -42,11 +42,10 @@ def convolve_1d(input_array, kernel_array):
     # Then fill the cells in the array with a loop.
     output_length = compute_output_size_1d(input_array, kernel_array)
     output_array = np.zeros(output_length)
-    flipped = np.flip(kernel_array)
 
     for i in range(len(output_array)):
-        output_array[i] = np.sum(input_array[i:i+len(kernel_array)]*flipped)
-        
+        output_array[i] = np.sum(input_array[i:i+len(kernel_array)]*kernel_array)
+
     return output_array
 
 # -----------------------------------------------
@@ -86,12 +85,11 @@ def convolute_2d(input_matrix, kernel_matrix):
     # define which parts of the input matrix need to be multiplied with the kernel matrix.
     output_rows, output_columns = compute_output_size_2d(input_matrix, kernel_matrix)
     output_array = np.zeros((output_rows, output_columns))
-    flipped = np.flip(kernel_matrix)
 
     for i in range(output_rows):
         for j in range(output_columns):
             section = input_matrix[i:i+kernel_matrix.shape[0], j:j+kernel_matrix.shape[1]]
-            output_array[i,j] = np.sum(section*flipped)
+            output_array[i,j] = np.sum(section*kernel_matrix)
 
     return output_array
 
